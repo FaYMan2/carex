@@ -131,7 +131,7 @@ export default function Explore() {
   };
   const sortedEvents = [...eventsData].sort((a, b) => b[sortBy] - a[sortBy]);
   const filteredEvents =
-    filterBy === "All" ? sortedEvents : sortedEvents.filter((event) => event.catergory.includes(filterBy));
+    filterBy === "All" ? sortedEvents : sortedEvents.filter((event) => event.category.includes(filterBy));
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -144,7 +144,7 @@ export default function Explore() {
           >
             <option value="prize">Sort by Prize Money</option>
             <option value="registeredCount">Sort by Registered Count</option>
-            <option value="date">Sort by Date</option>
+            <option value="start">Sort by Date</option>
           </select>
 
           <select
