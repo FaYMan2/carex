@@ -131,7 +131,7 @@ export default function Explore() {
   };
   const sortedEvents = [...eventsData].sort((a, b) => b[sortBy] - a[sortBy]);
   const filteredEvents =
-    filterBy === "All" ? sortedEvents : sortedEvents.filter((event) => event.flags?.includes(filterBy));
+    filterBy === "All" ? sortedEvents : sortedEvents.filter((event) => event.catergory.includes(filterBy));
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -153,9 +153,15 @@ export default function Explore() {
             onChange={(e) => setFilterBy(e.target.value)}
           >
             <option value="All">All Categories</option>
-            <option value="Technology">Technology</option>
+            <option value="coding">coding</option>
             <option value="AI">AI</option>
-            <option value="Fashion">Fashion</option>
+            <option value="entreprenuship">entreprenuship</option>
+            <option value="case competition">case competition</option>
+            <option value="guitar">guitar</option>
+            <option value="keyboard">keyboard</option>
+            <option value="debate">debate</option>
+
+
           </select>
         </div>
       </div>
