@@ -1,4 +1,4 @@
-import Onboarding from "./onboarding";
+import Onboarding from "./Onboarding";
 import prisma from "@/utils/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -12,7 +12,7 @@ const OnboardingPage = async () => {
         email: user.primaryEmailAddress.emailAddress
       },
     });
-
+    console.log(existingUser)
     if (existingUser) {
       redirect("/");
     }

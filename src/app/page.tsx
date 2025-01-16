@@ -4,13 +4,12 @@ import SearchBanner from './components/SearchBanner';
 import OpportunityCard from './components/OpportunityCard';
 import Footer from './components/Footer';
 import { useUser } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation'; // Note: `useRouter` is imported from `next/navigation` in App Router
+import { useRouter } from 'next/navigation'; 
 import { useEffect } from 'react';
 export default function Home() {
   const { user } = useUser();
   const router = useRouter();
 
-  // Handle redirection in useEffect
   useEffect(() => {
     if (user) {
       const userRole = localStorage.getItem("userRole");

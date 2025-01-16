@@ -28,7 +28,7 @@ export default function Explore() {
       return updated;
     });
 
-    // Trigger animation for this event
+    // Trigger animation for this event 
     setWishlistAnimation(eventId);
     setTimeout(() => setWishlistAnimation(null), 300); // Reset animation state
   };
@@ -38,16 +38,34 @@ export default function Explore() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const response = await fetch("/api/getEvents")
+        const response = await fetch("/api/getEvents");
         const data = await response.json();
-        console.log(data)
-        setEventsData(data);
-        setSelectedEvent(data[0]); // Set the first event as default selected
+  
+        // List of images in the same order as the events
+        const images = [
+          "/assets/agnitraya.jpg",
+          "/assets/brainsprit.jpg",
+          "/assets/eureka.jpg",
+          "/assets/investibot.jpg",
+          "/assets/kpi combat.jpg",
+          "/assets/loreal.jpg",
+          "/assets/swimming.jpg",
+          "/assets/talent_park.jpg",
+        ];
+  
+        // Assign images to events iteratively
+        const eventsWithImages = data.map((event: any, index: number) => ({
+          ...event,
+          eventImage: images[index % images.length], // Cycle through images if events > images
+        }));
+  
+        setEventsData(eventsWithImages);
+        setSelectedEvent(eventsWithImages[0]); // Set the first event as default selected
       } catch (error) {
         console.error("Failed to fetch events:", error);
       }
     }
-
+  
     fetchEvents();
   }, []);
 
@@ -64,17 +82,14 @@ export default function Explore() {
     if (!localStorage.getItem("userId") || localStorage.getItem("userRole")){
       if (user?.primaryEmailAddress) {
         try {
-          // Clear previous role and userId on new login
           localStorage.removeItem("userRole");
           localStorage.removeItem("userId");
 
-          // Check if role is stored in localStorage
           const storedRole = localStorage.getItem("userRole");
           const storedUserId = localStorage.getItem("userId");
 
           if (storedRole && storedUserId) {
           } else {
-            // If role not found in localStorage, fetch it from the API
             const response = await fetch("/api/getUserRole", {
               method: "POST",
               headers: {
