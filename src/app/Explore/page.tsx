@@ -41,22 +41,22 @@ export default function Explore() {
         const response = await fetch("/api/getEvents");
         const data = await response.json();
   
-        // List of images in the same order as the events
-        const images = [
-          "/assets/agnitraya.jpg",
-          "/assets/brainsprit.jpg",
-          "/assets/eureka.jpg",
-          "/assets/investibot.jpg",
-          "/assets/kpi combat.jpg",
-          "/assets/loreal.jpg",
-          "/assets/swimming.jpg",
-          "/assets/talent_park.jpg",
-        ];
+        // Map of event names to their corresponding images
+        const eventImagesMap = {
+          "Eureka": "/assets/eureka.jpg",
+          "Investibot": "/assets/investibot.jpg",
+          "Debate": "/assets/kpi combat.jpg",
+          "Men. Beauty & Care": "/assets/loreal.jpg",
+          "Sprint Swimming": "/assets/swimming.jpg",
+          "Talent Park": "/assets/talent_park.jpg",
+          "Vogue Voyage": "/assets/agnitraya.jpg",
+          "Brain Sprint": "/assets/brainsprit.jpg"
+        };
   
-        // Assign images to events iteratively
-        const eventsWithImages = data.map((event: any, index: number) => ({
+        // Assign images to events based on their name
+        const eventsWithImages = data.map((event: any) => ({
           ...event,
-          eventImage: images[index % images.length], // Cycle through images if events > images
+          eventImage: eventImagesMap[event.name] || "/assets/default.jpg", // Default image if no match
         }));
   
         setEventsData(eventsWithImages);
@@ -68,6 +68,7 @@ export default function Explore() {
   
     fetchEvents();
   }, []);
+  
 
 
   const handleRegister = async (eventId: number) => {
